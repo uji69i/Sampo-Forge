@@ -1,20 +1,20 @@
 ---
 description: Mihomo/Clash domain — types, parsing, state, YAML
-globs: "src/lib/mihomo/**/*.ts,src/routes/mihomo-config-generator/**/*"
+globs: "packages/shared/src/lib/mihomo/**/*.ts,packages/mihomo-config-generator/**/*"
 alwaysApply: false
 ---
 
 # Mihomo/Clash domain
 
-- **Types and interfaces**: `src/lib/mihomo/types.ts` (MihomoProxy, ProxyGroup, Subscription, RuleProvider, ManualRule, MihomoState, Listener, GeneralSettings, DnsSettings, etc.).
-- **Parsing**: links and base64 — `src/lib/mihomo/parser.ts` (`parseMany`, `b64decodeAuto`, etc.); subscriptions — `src/lib/mihomo/decode-subscription.ts`.
-- **YAML generation**: `src/lib/mihomo/yaml-gen.ts`.
-- **Config import**: `src/lib/mihomo/yaml-import.ts` — parse existing YAML and load into state.
-- **URL state serialization**: `src/lib/mihomo/state-serializer.ts` — `serializeStateToUrl`, `deserializeStateFromUrl`, `MAX_URL_LENGTH`.
-- **State helpers**: `src/lib/mihomo/state-helpers.ts` (buildRuleEntriesArray, resolveProxyNameConflicts, ensureAutoProxyGroup).
-- **Constants**: geosite/geoip URLs, policies (MATCH_POLICIES) — `src/lib/mihomo/constants.ts`.
-- **Topology/visualization**: `src/lib/mihomo/topology-data.ts` — data for ConfigTopology display.
+- **Types and interfaces**: `packages/shared/src/lib/mihomo/types.ts` (MihomoProxy, ProxyGroup, Subscription, RuleProvider, ManualRule, MihomoState, Listener, GeneralSettings, DnsSettings, etc.).
+- **Parsing**: links and base64 — `packages/shared/src/lib/mihomo/parser.ts` (`parseMany`, `b64decodeAuto`, etc.); subscriptions — `packages/shared/src/lib/mihomo/decode-subscription.ts`.
+- **YAML generation**: `packages/shared/src/lib/mihomo/yaml-gen.ts`.
+- **Config import**: `packages/shared/src/lib/mihomo/yaml-import.ts` — parse existing YAML and load into state.
+- **URL state serialization**: `packages/shared/src/lib/mihomo/state-serializer.ts` — `serializeStateToUrl`, `deserializeStateFromUrl`, `MAX_URL_LENGTH`.
+- **State helpers**: `packages/shared/src/lib/mihomo/state-helpers.ts` (buildRuleEntriesArray, resolveProxyNameConflicts, ensureAutoProxyGroup).
+- **Constants**: geosite/geoip URLs, policies (MATCH_POLICIES) — `packages/shared/src/lib/mihomo/constants.ts`.
+- **Topology/visualization**: `packages/shared/src/lib/mihomo/topology-data.ts` — data for ConfigTopology display.
 
-Config generator page state: `src/routes/mihomo-config-generator/mihomoReducer.ts`, `createInitialState()`. Do not duplicate state types — use types from `@/lib/mihomo/types`.
+Config generator page state: `packages/mihomo-config-generator/src/mihomoReducer.ts`, `createInitialState()`. Do not duplicate state types — use types from `@sampo-forge/shared/lib/mihomo/types`.
 
-Components in `src/routes/mihomo-config-generator/components/`: ProxyLinksInput, Base64Import, AmneziaWgImport, Subscriptions, ProxyGroups, GeoRules, RuleProviders, ManualRules, RuleOrder, YamlOutput, ImportConfigDialog, ServiceTemplates, GeneralSettingsPanel, DnsSettingsPanel, Listeners, ConfigTopology, DemoPresets.
+Components in `packages/mihomo-config-generator/src/components/`: ProxyLinksInput, Base64Import, AmneziaWgImport, Subscriptions, ProxyGroups, GeoRules, RuleProviders, ManualRules, RuleOrder, YamlOutput, ImportConfigDialog, ServiceTemplates, GeneralSettingsPanel, DnsSettingsPanel, Listeners, ConfigTopology, DemoPresets.

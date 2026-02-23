@@ -1,8 +1,12 @@
 {
   "files": [],
-  "references": [{"path": "./tsconfig.app.json"}, {"path": "./tsconfig.node.json"}],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": { "@/*": ["src/*"] }
-  }
+  "references": [
+    { "path": "packages/shared" },
+    { "path": "packages/home" },
+    { "path": "packages/proxy-toolkit" },
+    { "path": "packages/awg-qr-generator" },
+    { "path": "packages/awg-config-generator" },
+    { "path": "packages/mihomo-config-generator" },
+    { "path": "apps/web" }
+  ]
 }

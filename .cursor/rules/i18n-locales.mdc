@@ -1,6 +1,6 @@
 ---
 description: i18n and locales — all UI text via translations
-globs: "**/*.tsx,src/locales/*.json"
+globs: "**/*.tsx,packages/shared/src/locales/*.json"
 alwaysApply: false
 ---
 
@@ -11,7 +11,7 @@ alwaysApply: false
 - **Keys**: format `feature.section.key` (as in the project: `proxyToolkit.title`, `mihomo.emptyStatus`).
 
 When adding new UI text you **must** add the key and string to both files:
-- `src/locales/en.json`
-- `src/locales/ru.json`
+- `packages/shared/src/locales/en.json`
+- `packages/shared/src/locales/ru.json`
 
 Example: new heading in mihomo feature → add `"mihomo.newSectionTitle": "..."` to en.json and ru.json, use `t('mihomo.newSectionTitle')` in code.

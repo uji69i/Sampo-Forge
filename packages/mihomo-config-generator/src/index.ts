@@ -1,0 +1,1 @@
+export { MihomoConfigGenerator } from './MihomoConfigGenerator'

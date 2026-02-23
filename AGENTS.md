@@ -6,19 +6,35 @@
 
 ## Stack
 
-- React 19, Vite 7, TypeScript (strict), Tailwind 4, shadcn/ui (Radix UI, CVA, `cn()` from `@/lib/utils`), lucide-react
-- Path alias: `@/` → `src/`
+- React 19, Vite 7, TypeScript (strict), Tailwind 4, shadcn/ui (Radix UI, CVA, `cn()` from `@sampo-forge/shared`), lucide-react
+- pnpm workspaces monorepo
 
-## Structure
+## Structure (monorepo)
 
-- **src/App.tsx** — routing (React Router). Routes: `/`, `/proxy-toolkit`, `/awg-qr-generator`, `/awg-config-generator`, `/mihomo-config-generator`.
-- **src/components/ui/** — shadcn components (Button, Card, Select, Tabs, Dialog, Alert, Input, Textarea, Label, Badge, Collapsible, ScrollArea, Tooltip, Separator, Switch, Checkbox, etc.).
-- **src/lib/utils.ts** — `cn()` for merging class names.
-- **src/routes/<feature>/** — page, components, and optionally a reducer per feature.
-- **src/lib/** — shared logic: `mihomo/` (parser, types, yaml-gen, yaml-import, state-helpers, state-serializer, decode-subscription, topology-data, validators, constants), `proxy-explain.ts`, `wireguard-config.ts`, `amnezia-config.ts`, `qr.ts`.
-- **src/i18n/** — context and `useTranslation()`; locales in `src/locales/ru.json`, `en.json`.
+```
+packages/
+  shared/          (@sampo-forge/shared) — UI components (shadcn), lib (utils, mihomo parser, amnezia-config, wireguard-config, qr, proxy-explain), i18n, theme, locales
+  home/            (@sampo-forge/home)
+  proxy-toolkit/   (@sampo-forge/proxy-toolkit)
+  awg-qr-generator/ (@sampo-forge/awg-qr-generator)
+  awg-config-generator/ (@sampo-forge/awg-config-generator)
+  mihomo-config-generator/ (@sampo-forge/mihomo-config-generator) — biggest package: main page, 16 sub-components, mihomoReducer
+apps/
+  web/             (@sampo-forge/web) — main app shell: routing, Layout, LocaleGuard, DocumentHead, Vite config, CSS
+```
 
-**mihomo-config-generator** (`src/routes/mihomo-config-generator/`): main page component plus `components/` — ProxyLinksInput, Base64Import, AmneziaWgImport, Subscriptions, ProxyGroups, GeoRules, RuleProviders, ManualRules, RuleOrder, YamlOutput, ImportConfigDialog, ServiceTemplates, GeneralSettingsPanel, DnsSettingsPanel, Listeners, ConfigTopology, DemoPresets; state in `mihomoReducer.ts`.
+### Import conventions
+
+- **Within a package**: relative paths (`./components/ProxyTable`)
+- **Cross-package**: `@sampo-forge/shared/lib/utils`, `@sampo-forge/shared/ui/card`, `@sampo-forge/shared/i18n/useTranslation`
+- **App -> route packages**: `@sampo-forge/home`, `@sampo-forge/proxy-toolkit`, etc.
+
+### Key files
+
+- **packages/shared/src/lib/** — shared logic: `mihomo/` (parser, types, yaml-gen, yaml-import, state-helpers, state-serializer, decode-subscription, topology-data, validators, constants), `proxy-explain.ts`, `wireguard-config.ts`, `amnezia-config.ts`, `qr.ts`
+- **packages/shared/src/ui/** — shadcn components (Button, Card, Select, Tabs, Dialog, Alert, Input, Textarea, Label, Badge, Collapsible, ScrollArea, Tooltip, Separator, Switch, Checkbox)
+- **packages/shared/src/i18n/** — context and `useTranslation()`; locales in `packages/shared/src/locales/`
+- **apps/web/vite.config.ts** — Vite config with sitemap plugin, chunk splitting
 
 ## Terms
 

@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "types": ["vite/client"],
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@sampo-forge/shared/*": ["../../packages/shared/src/*"],
+      "@sampo-forge/home": ["../../packages/home/src/index.ts"],
+      "@sampo-forge/proxy-toolkit": ["../../packages/proxy-toolkit/src/index.ts"],
+      "@sampo-forge/awg-qr-generator": ["../../packages/awg-qr-generator/src/index.ts"],
+      "@sampo-forge/awg-config-generator": ["../../packages/awg-config-generator/src/index.ts"],
+      "@sampo-forge/mihomo-config-generator": ["../../packages/mihomo-config-generator/src/index.ts"]
+    },
+    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": [
+    "src",
+    "../../packages/shared/src",
+    "../../packages/home/src",
+    "../../packages/proxy-toolkit/src",
+    "../../packages/awg-qr-generator/src",
+    "../../packages/awg-config-generator/src",
+    "../../packages/mihomo-config-generator/src"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@sampo-forge/home",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@sampo-forge/shared": "workspace:*",
+    "react": "^19.2.0",
+    "react-router-dom": "^7.13.0"
+  }
+}

@@ -7,18 +7,18 @@ alwaysApply: false
 # TypeScript and React
 
 - Use only **function components** and hooks; do not add class components.
-- **Types**: take from `@/lib/...`, e.g. `MihomoProxy`, `ProxyGroup`, `Subscription` from `@/lib/mihomo/types`.
-- **Imports**: always use alias `@/` (e.g. `from '@/lib/mihomo/parser'`).
-- **UI**: use components from `@/components/ui` and merge class names with `cn()` from `@/lib/utils` for layout and styling.
+- **Types**: import from `@sampo-forge/shared/lib/...`, e.g. `MihomoProxy`, `ProxyGroup`, `Subscription` from `@sampo-forge/shared/lib/mihomo/types`.
+- **Imports**: within a package use relative paths; cross-package use `@sampo-forge/shared/*` or `@sampo-forge/<package-name>`.
+- **UI**: use components from `@sampo-forge/shared/ui/*` and merge class names with `cn()` from `@sampo-forge/shared/lib/utils`.
 
-Example of using types in a component and reducer:
+Example of using types in a component:
 
 ```tsx
-import type { ProxyGroup, MihomoProxy } from '@/lib/mihomo/types'
+import type { ProxyGroup, MihomoProxy } from '@sampo-forge/shared/lib/mihomo/types'
 
 function ProxyGroups({ groups }: { groups: ProxyGroup[] }) {
   // ...
 }
 ```
 
-In the reducer import state and action types from `@/lib/mihomo/types`; do not duplicate their definitions in the route folder.
+In the reducer import state and action types from `@sampo-forge/shared/lib/mihomo/types`; do not duplicate their definitions in the route package.

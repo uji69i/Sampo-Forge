@@ -1,0 +1,1 @@
+export { AwgQrGenerator } from './AwgQrGenerator'

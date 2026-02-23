@@ -5,7 +5,8 @@ alwaysApply: true
 
 # Project context
 
-- **Stack**: React 19, Vite 7, TypeScript (strict), Tailwind 4, shadcn/ui (components from `@/components/ui`, class names via `cn()` from `@/lib/utils`).
-- **Imports**: use path alias `@/` → `src/` (e.g. `import { X } from '@/lib/mihomo/types'`).
+- **Stack**: React 19, Vite 7, TypeScript (strict), Tailwind 4, shadcn/ui, pnpm workspaces monorepo.
+- **Monorepo layout**: `packages/` (shared, home, proxy-toolkit, awg-qr-generator, awg-config-generator, mihomo-config-generator) + `apps/web` (main app shell).
+- **Imports**: within a package use relative paths; cross-package use `@sampo-forge/shared/lib/utils`, `@sampo-forge/shared/ui/card`, `@sampo-forge/shared/i18n/useTranslation`, etc.
 - **Status**: app is in development; do not suggest excess production optimizations unless asked.
 - **Response language**: by default respond in English unless the user specifies otherwise.
