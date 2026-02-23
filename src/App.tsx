@@ -1,7 +1,11 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { LocaleGuard } from './components/LocaleGuard'
+
+const isStaticBuild = import.meta.env.MODE === 'static'
+const Router = isStaticBuild ? HashRouter : BrowserRouter
+const routerBasename = isStaticBuild ? '' : import.meta.env.BASE_URL
 
 const HomePage = lazy(() =>
   import('@/routes/home/HomePage').then((m) => ({ default: m.HomePage })),
@@ -33,7 +37,7 @@ function RouteFallback() {
 
 function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <Router basename={routerBasename}>
       <Routes>
         <Route path="/" element={<Navigate to="/ru" replace />} />
         <Route path="/:locale" element={<LocaleGuard />}>
@@ -81,7 +85,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
   )
 }
 

@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { viteSingleFile } from 'vite-plugin-singlefile'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8')) as { version: string }
@@ -49,10 +50,15 @@ function escapeXml(s: string): string {
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-  const base = mode === 'production' ? '/Sampo-Forge/' : '/'
+  const isStatic = mode === 'static'
+  const base = isStatic ? './' : (mode === 'production' ? '/Sampo-Forge/' : '/')
   return {
     base,
-    plugins: [react(), tailwindcss(), sitemapAndRobotsPlugin(base)],
+    plugins: [
+      react(),
+      tailwindcss(),
+      ...(isStatic ? [viteSingleFile()] : [sitemapAndRobotsPlugin(base)]),
+    ],
     define: {
       __APP_VERSION__: JSON.stringify(pkg.version),
     },
@@ -62,33 +68,36 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
+      outDir: isStatic ? 'dist-static' : 'dist',
       chunkSizeWarningLimit: 1200,
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (id.includes('/node_modules/')) {
-              if (
-                id.includes('/react/') ||
-                id.includes('/react-dom/') ||
-                id.includes('/react-router') ||
-                id.includes('/scheduler/')
-              ) {
-                return 'vendor'
-              }
-              if (id.includes('/echarts/') || id.includes('/echarts-for-react/') || id.includes('/zrender/')) {
-                return 'echarts'
-              }
-              if (
-                id.includes('/codemirror/') ||
-                id.includes('/@codemirror/') ||
-                id.includes('/@lezer/')
-              ) {
-                return 'codemirror'
-              }
-            }
+      rollupOptions: isStatic
+        ? {}
+        : {
+            output: {
+              manualChunks(id) {
+                if (id.includes('/node_modules/')) {
+                  if (
+                    id.includes('/react/') ||
+                    id.includes('/react-dom/') ||
+                    id.includes('/react-router') ||
+                    id.includes('/scheduler/')
+                  ) {
+                    return 'vendor'
+                  }
+                  if (id.includes('/echarts/') || id.includes('/echarts-for-react/') || id.includes('/zrender/')) {
+                    return 'echarts'
+                  }
+                  if (
+                    id.includes('/codemirror/') ||
+                    id.includes('/@codemirror/') ||
+                    id.includes('/@lezer/')
+                  ) {
+                    return 'codemirror'
+                  }
+                }
+              },
+            },
           },
-        },
-      },
     },
   }
 })

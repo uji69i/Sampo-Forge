@@ -1,5 +1,6 @@
 import { useReducer, useState, useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from '@/i18n/useTranslation'
+import { getDataBaseUrl } from '@/lib/dataBaseUrl'
 import { GEOSITE_URL, GEOIP_URL, MATCH_POLICIES } from '@/lib/mihomo/constants'
 import { parseMany } from '@/lib/mihomo/parser'
 import { buildRuleEntriesArray } from '@/lib/mihomo/state-helpers'
@@ -123,7 +124,7 @@ export function MihomoConfigGenerator() {
   }, [])
 
   useEffect(() => {
-    const url = `${import.meta.env.BASE_URL}data/service-templates.json`
+    const url = `${getDataBaseUrl()}data/service-templates.json`
     fetch(url)
       .then((r) => r.json())
       .then((data: ServiceTemplate[]) => {
@@ -133,7 +134,7 @@ export function MihomoConfigGenerator() {
   }, [])
 
   useEffect(() => {
-    const url = `${import.meta.env.BASE_URL}data/demo-presets/index.json`
+    const url = `${getDataBaseUrl()}data/demo-presets/index.json`
     fetch(url)
       .then((r) => r.json())
       .then((data: DemoPresetMeta[]) => {

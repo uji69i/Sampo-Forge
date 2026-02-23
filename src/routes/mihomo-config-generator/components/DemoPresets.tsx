@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { useTranslation } from '@/i18n/useTranslation'
 import type { MihomoState } from '@/lib/mihomo/types'
 import type { MihomoAction } from '../mihomoReducer'
+import { getDataBaseUrl } from '@/lib/dataBaseUrl'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 
@@ -18,7 +19,7 @@ interface DemoPresetsProps {
   dispatch: React.Dispatch<MihomoAction>
 }
 
-const BASE = `${import.meta.env.BASE_URL}data/demo-presets/`
+const BASE = `${getDataBaseUrl()}data/demo-presets/`
 
 /** Dropdown to select a demo preset and load it (replaces current state). */
 export function DemoPresets({
