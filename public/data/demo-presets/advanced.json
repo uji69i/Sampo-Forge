@@ -1,0 +1,75 @@
+{
+  "linksRaw": "vless://uuid@example.com:443?encryption=none&security=tls#Demo-VLESS\nvmess://eyJhZGQiOiJleGFtcGxlLmNvbSIsInBvcnQiOjQ0MywidWlkIjoidXVpZCIsImNpcGhlciI6ImF1dG8iLCJhaWQiOjB9\nss://Y2hhY2hhMjA6cGFzc3dvcmQ@example.com:8388#Demo-SS\ntrojan://password@example.com:443?sni=example.com#Demo-Trojan",
+  "subs": [
+    {
+      "name": "My subscription",
+      "url": "https://example.com/sub?token=YOUR_TOKEN",
+      "fetchMode": "DIRECT"
+    }
+  ],
+  "groups": [
+    {
+      "name": "Proxy",
+      "type": "select",
+      "proxies": ["Demo-VLESS", "example.com", "Demo-SS", "Demo-Trojan"],
+      "manual": []
+    },
+    {
+      "name": "Auto",
+      "type": "url-test",
+      "proxies": ["Demo-VLESS", "example.com", "Demo-SS", "Demo-Trojan"],
+      "manual": []
+    }
+  ],
+  "match": {
+    "mode": "group",
+    "value": "Proxy"
+  },
+  "enabledTemplates": {
+    "telegram": "Proxy",
+    "youtube": "Proxy",
+    "google": "Proxy",
+    "whatsapp": "Auto",
+    "discord": "Auto",
+    "openai": "Auto"
+  },
+  "rulesGeoip": {
+    "ru": { "action": "PROXY", "target": "DIRECT" }
+  },
+  "ruleOrder": [
+    { "kind": "MANUAL", "key": "IP-CIDR,192.168.0.0/16", "policy": "DIRECT" },
+    { "kind": "MANUAL", "key": "IP-CIDR,10.0.0.0/8", "policy": "DIRECT" },
+    { "kind": "MANUAL", "key": "IP-CIDR,172.16.0.0/12", "policy": "DIRECT" },
+    { "kind": "MANUAL", "key": "IP-CIDR,127.0.0.0/8", "policy": "DIRECT" },
+    { "kind": "MANUAL", "key": "DOMAIN-SUFFIX,example.com", "policy": "DIRECT" },
+    { "kind": "GEOIP", "key": "ru", "policy": "DIRECT" },
+    { "kind": "MATCH", "key": "MATCH", "policy": "Proxy" }
+  ],
+  "manualRules": [
+    {
+      "type": "IP-CIDR",
+      "value": "192.168.0.0/16",
+      "policy": "DIRECT"
+    },
+    {
+      "type": "IP-CIDR",
+      "value": "10.0.0.0/8",
+      "policy": "DIRECT"
+    },
+    {
+      "type": "IP-CIDR",
+      "value": "172.16.0.0/12",
+      "policy": "DIRECT"
+    },
+    {
+      "type": "IP-CIDR",
+      "value": "127.0.0.0/8",
+      "policy": "DIRECT"
+    },
+    {
+      "type": "DOMAIN-SUFFIX",
+      "value": "example.com",
+      "policy": "DIRECT"
+    }
+  ]
+}

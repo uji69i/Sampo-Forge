@@ -1,0 +1,268 @@
+[
+  {
+    "id": "telegram",
+    "name": "Telegram",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png",
+    "ruleProviders": [
+      {
+        "name": "telegram-domains",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/telegram.mrs"
+      },
+      {
+        "name": "telegram-ips",
+        "behavior": "ipcidr",
+        "format": "yaml",
+        "url": "https://raw.githubusercontent.com/OMchik33/custom-rules/refs/heads/main/mihomo/telegram-ips.yaml"
+      }
+    ],
+    "rulePattern": "OR,((RULE-SET,telegram-domains),(RULE-SET,telegram-ips)),{policy}"
+  },
+  {
+    "id": "youtube",
+    "name": "YouTube",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png",
+    "ruleProviders": [
+      {
+        "name": "youtube",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs"
+      }
+    ],
+    "rulePattern": "RULE-SET,youtube,{policy}"
+  },
+  {
+    "id": "google",
+    "name": "Google",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google.png",
+    "ruleProviders": [
+      {
+        "name": "google",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"
+      }
+    ],
+    "rulePattern": "RULE-SET,google,{policy}"
+  },
+  {
+    "id": "whatsapp",
+    "name": "WhatsApp",
+    "icon": "https://github.com/OMchik33/Whatsapp-icon/blob/master/icons/whatsapp_194x194.png?raw=true",
+    "ruleProviders": [
+      {
+        "name": "whatsapp-domains",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/whatsapp.mrs"
+      },
+      {
+        "name": "whatsapp-ips",
+        "behavior": "ipcidr",
+        "format": "yaml",
+        "url": "https://raw.githubusercontent.com/OMchik33/custom-rules/refs/heads/main/mihomo/whatsapp-ips.yaml"
+      }
+    ],
+    "rulePattern": "OR,((RULE-SET,whatsapp-domains),(RULE-SET,whatsapp-ips)),{policy}"
+  },
+  {
+    "id": "cloudflare",
+    "name": "Cloudflare",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png",
+    "ruleProviders": [
+      {
+        "name": "cf-domains",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cloudflare.mrs"
+      },
+      {
+        "name": "cf-ips",
+        "behavior": "ipcidr",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cloudflare.mrs"
+      }
+    ],
+    "rulePattern": "OR,((RULE-SET,cf-domains),(RULE-SET,cf-ips)),{policy}"
+  },
+  {
+    "id": "instagram",
+    "name": "Instagram",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Instagram.png",
+    "ruleProviders": [
+      {
+        "name": "instagram",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/instagram.mrs"
+      }
+    ],
+    "rulePattern": "RULE-SET,instagram,{policy}"
+  },
+  {
+    "id": "twitter",
+    "name": "Twitter / X",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Twitter.png",
+    "ruleProviders": [
+      {
+        "name": "twitter",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitter.mrs"
+      }
+    ],
+    "rulePattern": "RULE-SET,twitter,{policy}"
+  },
+  {
+    "id": "discord",
+    "name": "Discord",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Discord.png",
+    "ruleProviders": [
+      {
+        "name": "discord-domains",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/meta/geo/geosite/discord.mrs"
+      },
+      {
+        "name": "discord-voiceips",
+        "behavior": "ipcidr",
+        "format": "mrs",
+        "url": "https://github.com/legiz-ru/mihomo-rule-sets/raw/main/other/discord-voice-ip-list.mrs"
+      }
+    ],
+    "rulePattern": "OR,((RULE-SET,discord-domains),(RULE-SET,discord-voiceips)),{policy}"
+  },
+  {
+    "id": "steam",
+    "name": "Steam",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Steam.png",
+    "ruleProviders": [
+      {
+        "name": "steam-domains",
+        "behavior": "domain",
+        "format": "yaml",
+        "url": "https://raw.githubusercontent.com/OMchik33/custom-rules/refs/heads/main/mihomo/gaming-domains.yaml"
+      },
+      {
+        "name": "steam-ips",
+        "behavior": "ipcidr",
+        "format": "yaml",
+        "url": "https://raw.githubusercontent.com/OMchik33/custom-rules/refs/heads/main/mihomo/gaming-ips.yaml"
+      }
+    ],
+    "rulePattern": "OR,((RULE-SET,steam-domains),(RULE-SET,steam-ips)),{policy}"
+  },
+  {
+    "id": "twitch",
+    "name": "Twitch",
+    "icon": "https://img.icons8.com/3d-fluency/94/twitch.png",
+    "ruleProviders": [
+      {
+        "name": "twitch-domains",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitch.mrs"
+      }
+    ],
+    "rulePattern": "RULE-SET,twitch-domains,{policy}"
+  },
+  {
+    "id": "openai",
+    "name": "OpenAI",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Dark/Bot.png",
+    "ruleProviders": [
+      {
+        "name": "openai",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/meta/geo/geosite/openai.mrs"
+      }
+    ],
+    "rulePattern": "RULE-SET,openai,{policy}"
+  },
+  {
+    "id": "anthropic",
+    "name": "Anthropic",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Dark/Bot.png",
+    "ruleProviders": [
+      {
+        "name": "anthropic",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/meta/geo/geosite/anthropic.mrs"
+      }
+    ],
+    "rulePattern": "RULE-SET,anthropic,{policy}"
+  },
+  {
+    "id": "perplexity",
+    "name": "Perplexity",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Dark/Bot.png",
+    "ruleProviders": [
+      {
+        "name": "perplexity",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/meta/geo/geosite/perplexity.mrs"
+      }
+    ],
+    "rulePattern": "RULE-SET,perplexity,{policy}"
+  },
+  {
+    "id": "google-gemini",
+    "name": "Google Gemini",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Dark/Bot.png",
+    "ruleProviders": [
+      {
+        "name": "google-gemini",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/meta/geo/geosite/google-gemini.mrs"
+      }
+    ],
+    "rulePattern": "RULE-SET,google-gemini,{policy}"
+  },
+  {
+    "id": "microsoft",
+    "name": "Microsoft",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Dark/Microsoft.png",
+    "ruleProviders": [
+      {
+        "name": "microsoft",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/meta/geo/geosite/microsoft.mrs"
+      }
+    ],
+    "rulePattern": "RULE-SET,microsoft,{policy}"
+  },
+  {
+    "id": "torrent",
+    "name": "Torrent",
+    "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Download.png",
+    "ruleProviders": [
+      {
+        "name": "torrent-clients",
+        "behavior": "classical",
+        "format": "yaml",
+        "url": "https://github.com/legiz-ru/mihomo-rule-sets/raw/main/other/torrent-clients.yaml"
+      },
+      {
+        "name": "torrent-trackers",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://raw.githubusercontent.com/legiz-ru/mihomo-rule-sets/main/other/torrent-trackers.mrs"
+      },
+      {
+        "name": "torrent-websites",
+        "behavior": "domain",
+        "format": "mrs",
+        "url": "https://raw.githubusercontent.com/legiz-ru/mihomo-rule-sets/main/other/torrent-websites.mrs"
+      }
+    ],
+    "rulePattern": "OR,((RULE-SET,torrent-clients),(RULE-SET,torrent-trackers),(RULE-SET,torrent-websites)),{policy}"
+  }
+]

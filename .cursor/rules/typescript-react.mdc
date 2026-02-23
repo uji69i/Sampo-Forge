@@ -1,0 +1,24 @@
+---
+description: TypeScript and React patterns for the project
+globs: "**/*.ts,**/*.tsx"
+alwaysApply: false
+---
+
+# TypeScript and React
+
+- Use only **function components** and hooks; do not add class components.
+- **Types**: take from `@/lib/...`, e.g. `MihomoProxy`, `ProxyGroup`, `Subscription` from `@/lib/mihomo/types`.
+- **Imports**: always use alias `@/` (e.g. `from '@/lib/mihomo/parser'`).
+- **UI**: use components from `@/components/ui` and merge class names with `cn()` from `@/lib/utils` for layout and styling.
+
+Example of using types in a component and reducer:
+
+```tsx
+import type { ProxyGroup, MihomoProxy } from '@/lib/mihomo/types'
+
+function ProxyGroups({ groups }: { groups: ProxyGroup[] }) {
+  // ...
+}
+```
+
+In the reducer import state and action types from `@/lib/mihomo/types`; do not duplicate their definitions in the route folder.

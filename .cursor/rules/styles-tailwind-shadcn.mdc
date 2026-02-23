@@ -1,0 +1,11 @@
+---
+description: Tailwind and shadcn styling — utilities, components, theme
+globs: "**/*.tsx,**/*.css,src/components/ui/**,src/index.css"
+alwaysApply: false
+---
+
+# Tailwind and shadcn styles
+
+- Use Tailwind utility classes and components from `src/components/ui`. Merge class names with `cn()` from `@/lib/utils`.
+- Theme and CSS variables (including dark mode) live in `src/index.css` (`@theme inline`, `:root`, `.dark`).
+- Do not add SCSS or global classes unless explicitly requested; for local styling use `className` with Tailwind in the component or add to `index.css` with clear names/prefixes.

@@ -1,0 +1,365 @@
+{
+  "linksRaw": "vless://uuid@example.com:443?encryption=none&security=tls#Demo-VLESS\nvmess://eyJhZGQiOiJleGFtcGxlLmNvbSIsInBvcnQiOjQ0MywidWlkIjoidXVpZCIsImNpcGhlciI6ImF1dG8iLCJhaWQiOjB9\nss://Y2hhY2hhMjA6cGFzc3dvcmQ@example.com:8388#Demo-SS\ntrojan://password@example.com:443?sni=example.com#Demo-Trojan",
+  "extraProxies": [
+    {
+      "name": "Demo-AWG",
+      "type": "wireguard",
+      "server": "awg.example.com",
+      "port": 51820,
+      "ip": "10.66.66.2",
+      "private-key": "DEMO_PRIVATE_KEY_REPLACE_IN_REAL_CONFIG",
+      "public-key": "DEMO_PUBLIC_KEY_REPLACE_IN_REAL_CONFIG",
+      "allowed-ips": ["0.0.0.0/0", "::/0"],
+      "udp": true,
+      "amnezia-wg-option": {
+        "jc": 4,
+        "jmin": 40,
+        "jmax": 70,
+        "s1": 100,
+        "s2": 200,
+        "h1": "a1b2c3d4e5f6",
+        "h2": "f6e5d4c3b2a1",
+        "h3": "0123456789ab",
+        "h4": "ba9876543210"
+      }
+    }
+  ],
+  "subs": [
+    {
+      "name": "My subscription",
+      "url": "https://example.com/sub?token=YOUR_TOKEN",
+      "fetchMode": "DIRECT"
+    }
+  ],
+  "groups": [
+    {
+      "name": "SELECTOR",
+      "type": "select",
+      "proxies": [],
+      "manual": ["AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"],
+      "includeAll": true
+    },
+    {
+      "name": "AUTO",
+      "type": "fallback",
+      "proxies": [],
+      "manual": ["FASTEST", "FAILOVER", "MANUAL", "DIRECT"],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": 200
+    },
+    {
+      "name": "FASTEST",
+      "type": "url-test",
+      "proxies": [],
+      "manual": [],
+      "useSubs": ["My subscription"],
+      "excludeFilter": "(?i)🇷🇺|RU",
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": 300,
+      "tolerance": 50,
+      "lazy": false,
+      "expectedStatus": "200-399"
+    },
+    {
+      "name": "FAILOVER",
+      "type": "fallback",
+      "proxies": [],
+      "manual": [],
+      "useSubs": ["My subscription"],
+      "excludeFilter": "(?i)🇷🇺|RU",
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": 200
+    },
+    {
+      "name": "MANUAL",
+      "type": "select",
+      "proxies": [],
+      "manual": [],
+      "useSubs": ["My subscription"],
+      "excludeFilter": "(?i)🇷🇺|RU"
+    },
+    {
+      "name": "RU_AUTO",
+      "type": "fallback",
+      "proxies": [],
+      "manual": ["RU_FASTEST", "RU_FAILOVER", "RU_MANUAL", "DIRECT"],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": 200,
+      "filter": "(?i)🇷🇺|RU"
+    },
+    {
+      "name": "RU_FASTEST",
+      "type": "url-test",
+      "proxies": [],
+      "manual": [],
+      "useSubs": ["My subscription"],
+      "filter": "(?i)🇷🇺|RU",
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": 300,
+      "tolerance": 50,
+      "lazy": false,
+      "expectedStatus": "200-399"
+    },
+    {
+      "name": "RU_FAILOVER",
+      "type": "fallback",
+      "proxies": [],
+      "manual": [],
+      "useSubs": ["My subscription"],
+      "filter": "(?i)🇷🇺|RU",
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": 200
+    },
+    {
+      "name": "RU_MANUAL",
+      "type": "select",
+      "proxies": [],
+      "manual": [],
+      "useSubs": ["My subscription"],
+      "filter": "(?i)🇷🇺|RU"
+    },
+    {
+      "name": "AWG_AUTO",
+      "type": "fallback",
+      "proxies": [],
+      "manual": ["AWG_FASTEST", "AWG_FAILOVER", "AWG_MANUAL", "DIRECT"],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": 200,
+      "excludeType": "ss|shadowsocks|trojan|hysteria|hysteria2|tuic|socks5|http|vless|vmess"
+    },
+    {
+      "name": "AWG_FASTEST",
+      "type": "url-test",
+      "proxies": [],
+      "manual": [],
+      "useSubs": ["My subscription"],
+      "excludeType": "ss|shadowsocks|trojan|hysteria|hysteria2|tuic|socks5|http|vless|vmess",
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": 300,
+      "tolerance": 30,
+      "lazy": false,
+      "expectedStatus": "200-399"
+    },
+    {
+      "name": "AWG_FAILOVER",
+      "type": "fallback",
+      "proxies": [],
+      "manual": [],
+      "useSubs": ["My subscription"],
+      "excludeType": "ss|shadowsocks|trojan|hysteria|hysteria2|tuic|socks5|http|vless|vmess",
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": 200
+    },
+    {
+      "name": "AWG_MANUAL",
+      "type": "select",
+      "proxies": [],
+      "manual": [],
+      "useSubs": ["My subscription"],
+      "excludeType": "ss|shadowsocks|trojan|hysteria|hysteria2|tuic|socks5|http|vless|vmess"
+    },
+    {
+      "name": "QUIC",
+      "type": "select",
+      "proxies": [],
+      "manual": ["PASS", "REJECT"]
+    },
+    {
+      "name": "Telegram",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "WhatsApp",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "YouTube",
+      "type": "select",
+      "proxies": [],
+      "manual": ["RU_AUTO", "RU_MANUAL", "SELECTOR", "AWG_AUTO", "AWG_MANUAL", "AUTO", "MANUAL", "DIRECT"]
+    },
+    {
+      "name": "Discord",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "Steam",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "Twitch",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "OpenAI",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "Anthropic",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "Perplexity",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "GoogleGemini",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "Microsoft",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "Ru-Traffic",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "RU_AUTO", "RU_MANUAL", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "ECH-Refilter",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "Torrent-Traffic",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "CDN-Traffic",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    },
+    {
+      "name": "Hosting-Traffic",
+      "type": "select",
+      "proxies": [],
+      "manual": ["SELECTOR", "AUTO", "MANUAL", "AWG_AUTO", "AWG_MANUAL", "RU_AUTO", "RU_MANUAL", "DIRECT"]
+    }
+  ],
+  "match": { "mode": "group", "value": "SELECTOR" },
+  "enabledTemplates": {
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "youtube": "YouTube",
+    "discord": "Discord",
+    "steam": "Steam",
+    "twitch": "Twitch",
+    "openai": "OpenAI",
+    "anthropic": "Anthropic",
+    "perplexity": "Perplexity",
+    "google-gemini": "GoogleGemini",
+    "microsoft": "Microsoft",
+    "torrent": "Torrent-Traffic"
+  },
+  "ruleProviders": [
+    {
+      "name": "refilter-ech",
+      "type": "http",
+      "behavior": "domain",
+      "format": "mrs",
+      "url": "https://github.com/legiz-ru/mihomo-rule-sets/raw/main/re-filter/re-filter-ech.mrs",
+      "path": "./rule-sets/refilter-ech.mrs",
+      "interval": 86400
+    },
+    {
+      "name": "refilter-noech",
+      "type": "http",
+      "behavior": "domain",
+      "format": "mrs",
+      "url": "https://github.com/legiz-ru/mihomo-rule-sets/raw/main/re-filter/re-filter-noech.mrs",
+      "path": "./rule-sets/refilter-noech.mrs",
+      "interval": 86400
+    },
+    {
+      "name": "refilter-ipsum",
+      "type": "http",
+      "behavior": "ipcidr",
+      "format": "mrs",
+      "url": "https://github.com/legiz-ru/mihomo-rule-sets/raw/main/re-filter/ip-rule.mrs",
+      "path": "./rule-sets/refilter-ip-rule.mrs",
+      "interval": 86400
+    }
+  ],
+  "rulesGeoip": {
+    "ru": { "action": "PROXY", "target": "Ru-Traffic" },
+    "akamai": { "action": "PROXY", "target": "CDN-Traffic" },
+    "amazon": { "action": "PROXY", "target": "CDN-Traffic" },
+    "fastly": { "action": "PROXY", "target": "CDN-Traffic" },
+    "cloudflare": { "action": "PROXY", "target": "CDN-Traffic" },
+    "cdn77": { "action": "PROXY", "target": "CDN-Traffic" },
+    "google": { "action": "PROXY", "target": "CDN-Traffic" },
+    "digitalocean": { "action": "PROXY", "target": "Hosting-Traffic" },
+    "hetzner": { "action": "PROXY", "target": "Hosting-Traffic" },
+    "mega": { "action": "PROXY", "target": "Hosting-Traffic" },
+    "oracle": { "action": "PROXY", "target": "Hosting-Traffic" },
+    "ovh": { "action": "PROXY", "target": "Hosting-Traffic" },
+    "vultr": { "action": "PROXY", "target": "Hosting-Traffic" },
+    "meta": { "action": "PROXY", "target": "Hosting-Traffic" }
+  },
+  "rulesGeosite": {
+    "domains": { "action": "PROXY", "target": "SELECTOR" },
+    "other": { "action": "PROXY", "target": "SELECTOR" },
+    "politic": { "action": "PROXY", "target": "SELECTOR" }
+  },
+  "manualRules": [
+    { "type": "IP-CIDR", "value": "192.168.0.0/16", "policy": "DIRECT" },
+    { "type": "IP-CIDR", "value": "10.0.0.0/8", "policy": "DIRECT" },
+    { "type": "IP-CIDR", "value": "172.16.0.0/12", "policy": "DIRECT" },
+    { "type": "IP-CIDR", "value": "127.0.0.0/8", "policy": "DIRECT" },
+    { "type": "DOMAIN-SUFFIX", "value": "example.com", "policy": "DIRECT" }
+  ],
+  "ruleOrder": [
+    { "kind": "MANUAL", "key": "IP-CIDR,192.168.0.0/16", "policy": "DIRECT" },
+    { "kind": "MANUAL", "key": "IP-CIDR,10.0.0.0/8", "policy": "DIRECT" },
+    { "kind": "MANUAL", "key": "IP-CIDR,172.16.0.0/12", "policy": "DIRECT" },
+    { "kind": "MANUAL", "key": "IP-CIDR,127.0.0.0/8", "policy": "DIRECT" },
+    { "kind": "MANUAL", "key": "DOMAIN-SUFFIX,example.com", "policy": "DIRECT" },
+    { "kind": "MANUAL", "key": "AND,((NETWORK,udp),(DST-PORT,443))", "policy": "QUIC" },
+    { "kind": "GEOIP", "key": "ru", "policy": "Ru-Traffic" },
+    { "kind": "GEOIP", "key": "akamai", "policy": "CDN-Traffic" },
+    { "kind": "GEOIP", "key": "amazon", "policy": "CDN-Traffic" },
+    { "kind": "GEOIP", "key": "fastly", "policy": "CDN-Traffic" },
+    { "kind": "GEOIP", "key": "cloudflare", "policy": "CDN-Traffic" },
+    { "kind": "GEOIP", "key": "cdn77", "policy": "CDN-Traffic" },
+    { "kind": "GEOIP", "key": "google", "policy": "CDN-Traffic" },
+    { "kind": "RULE-SET", "key": "refilter-ech", "policy": "ECH-Refilter" },
+    { "kind": "RULE-SET", "key": "refilter-noech", "policy": "ECH-Refilter" },
+    { "kind": "RULE-SET", "key": "refilter-ipsum", "policy": "ECH-Refilter" },
+    { "kind": "GEOIP", "key": "digitalocean", "policy": "Hosting-Traffic" },
+    { "kind": "GEOIP", "key": "hetzner", "policy": "Hosting-Traffic" },
+    { "kind": "GEOIP", "key": "mega", "policy": "Hosting-Traffic" },
+    { "kind": "GEOIP", "key": "oracle", "policy": "Hosting-Traffic" },
+    { "kind": "GEOIP", "key": "ovh", "policy": "Hosting-Traffic" },
+    { "kind": "GEOIP", "key": "vultr", "policy": "Hosting-Traffic" },
+    { "kind": "GEOIP", "key": "meta", "policy": "Hosting-Traffic" },
+    { "kind": "GEOSITE", "key": "domains", "policy": "SELECTOR" },
+    { "kind": "GEOSITE", "key": "other", "policy": "SELECTOR" },
+    { "kind": "GEOSITE", "key": "politic", "policy": "SELECTOR" },
+    { "kind": "MATCH", "key": "MATCH", "policy": "SELECTOR" }
+  ]
+}

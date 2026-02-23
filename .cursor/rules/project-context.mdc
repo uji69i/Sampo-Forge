@@ -1,0 +1,11 @@
+---
+description: Base project context for every session
+alwaysApply: true
+---
+
+# Project context
+
+- **Stack**: React 19, Vite 7, TypeScript (strict), Tailwind 4, shadcn/ui (components from `@/components/ui`, class names via `cn()` from `@/lib/utils`).
+- **Imports**: use path alias `@/` → `src/` (e.g. `import { X } from '@/lib/mihomo/types'`).
+- **Status**: app is in development; do not suggest excess production optimizations unless asked.
+- **Response language**: by default respond in English unless the user specifies otherwise.

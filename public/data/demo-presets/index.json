@@ -1,0 +1,5 @@
+[
+  {"id": "basic", "file": "basic.json", "nameKey": "mihomo.demoPresetBasic", "descKey": "mihomo.demoPresetBasicDesc"},
+  {"id": "advanced", "file": "advanced.json", "nameKey": "mihomo.demoPresetAdvanced", "descKey": "mihomo.demoPresetAdvancedDesc"},
+  {"id": "stargate", "file": "stargate.json", "nameKey": "mihomo.demoPresetStargate", "descKey": "mihomo.demoPresetStargateDesc"}
+]
